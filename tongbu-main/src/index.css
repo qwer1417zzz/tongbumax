@@ -142,7 +142,7 @@
   }
 
   .image-cover {
-    @apply w-full h-full object-contain;
+    @apply w-full h-full object-cover;
   }
 
   /* 安全区域内边距 */
