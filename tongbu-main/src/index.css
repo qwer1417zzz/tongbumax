@@ -1,0 +1,272 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 私域引流 H5 设计系统 - iOS 风格深色主题 */
+
+@layer base {
+  :root {
+    /* 深色主题作为默认 */
+    --background: 0 0% 4%;
+    --foreground: 0 0% 98%;
+
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 4%;
+
+    --secondary: 0 0% 14%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 0 0% 18%;
+    --muted-foreground: 0 0% 60%;
+
+    --accent: 0 0% 20%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 16%;
+    --input: 0 0% 16%;
+    --ring: 0 0% 40%;
+
+    --radius: 1rem;
+
+    /* 自定义设计变量 */
+    --card-radius: 1.25rem;
+    --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    --card-shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.6);
+    --card-scale-active: 1;
+    --card-scale-adjacent: 0.88;
+    
+    /* iOS 风格动画曲线 */
+    --ease-ios: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    
+    /* 间距 */
+    --spacing-safe-top: env(safe-area-inset-top, 0px);
+    --spacing-safe-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .dark {
+    --background: 0 0% 4%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 4%;
+    --secondary: 0 0% 14%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 18%;
+    --muted-foreground: 0 0% 60%;
+    --accent: 0 0% 20%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 16%;
+    --input: 0 0% 16%;
+    --ring: 0 0% 40%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 
+      'Helvetica Neue', 'Segoe UI', Roboto, sans-serif;
+    overscroll-behavior: none;
+    overflow-x: hidden;
+  }
+}
+
+@layer utilities {
+  /* iOS 风格卡片 */
+  .card-ios {
+    @apply rounded-[var(--card-radius)] bg-card;
+    box-shadow: var(--card-shadow);
+    transition: all 0.4s var(--ease-ios);
+  }
+
+  .card-ios:hover {
+    box-shadow: var(--card-shadow-hover);
+    filter: brightness(1.05);
+  }
+
+  .card-ios:active {
+    transform: scale(0.98);
+  }
+
+  /* 卡片滑动组件样式 */
+  .swiper-card {
+    @apply rounded-[var(--card-radius)] overflow-hidden;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.5s var(--ease-ios), 
+                opacity 0.5s var(--ease-ios),
+                filter 0.5s var(--ease-ios);
+  }
+
+  .swiper-card-active {
+    transform: scale(var(--card-scale-active));
+    box-shadow: var(--card-shadow-hover);
+    filter: brightness(1.1);
+    z-index: 10;
+  }
+
+  .swiper-card-adjacent {
+    transform: scale(var(--card-scale-adjacent));
+    opacity: 0.7;
+    filter: brightness(0.85);
+  }
+
+  /* 图片容器 */
+  .image-container {
+    @apply relative overflow-hidden rounded-[var(--card-radius)];
+  }
+
+  .image-cover {
+    @apply w-full h-full object-contain;
+  }
+
+  /* 安全区域内边距 */
+  .safe-area-top {
+    padding-top: var(--spacing-safe-top);
+  }
+
+  .safe-area-bottom {
+    padding-bottom: var(--spacing-safe-bottom);
+  }
+
+  /* 触摸反馈 */
+  .touch-feedback {
+    transition: opacity 0.15s ease;
+  }
+
+  .touch-feedback:active {
+    opacity: 0.7;
+  }
+
+  /* 二维码区域 */
+  .qr-container {
+    @apply rounded-2xl bg-card/80 backdrop-blur-sm p-6;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  /* 渐变遮罩 */
+  .gradient-overlay {
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      hsl(var(--background) / 0.6) 50%,
+      hsl(var(--background)) 100%
+    );
+  }
+
+  /* 文字渐变 */
+  .text-gradient {
+    background: linear-gradient(135deg, hsl(var(--foreground)) 0%, hsl(var(--muted-foreground)) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* 玻璃态效果 */
+  .glass {
+    @apply bg-card/60 backdrop-blur-xl border border-border/50;
+  }
+
+  /* 隐藏滚动条 */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* 自定义动画 */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
+  }
+}
+
+@keyframes shimmer {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s var(--ease-ios) forwards;
+}
+
+.animate-fade-in-scale {
+  animation: fade-in-scale 0.5s var(--ease-ios) forwards;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* 移动端优化 */
+@media (max-width: 640px) {
+  :root {
+    --card-radius: 1rem;
+  }
+}
+
+/* 触摸设备优化 */
+@media (hover: none) and (pointer: coarse) {
+  .card-ios:hover {
+    box-shadow: var(--card-shadow);
+    filter: brightness(1);
+  }
+}
